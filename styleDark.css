@@ -13,7 +13,7 @@ body {
     background-color: #c1b5b5;
 }
 
-.calculator {
+#calculator {
     background-color: #1d1b1b;
     width: 640px;
     height: 950px;
@@ -26,7 +26,7 @@ body {
     border: 3.4px solid #7b6248;
 }
 
-.display {
+#display {
     box-shadow: 0.5px 0.5px 3px 3px #7b6248;
     font-family: sans-serif;
     font-size: 27px;
@@ -40,7 +40,7 @@ body {
     justify-content: end;
 }
 
-.display .screen {
+#display #screen {
    height: 100%;
    width: 100%;
    display: flex;
@@ -49,7 +49,7 @@ body {
    color: #c1b5b5;
 }
 
-.buttons {
+#buttons {
     background-color: #3e3939;
     width: 580px;
     height: 690px;
@@ -62,13 +62,13 @@ body {
     border: 0.00000000000000001px solid #7b6248;
 }
 
-.buttons div {
+#buttons div {
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
 
-.buttons button {
+#buttons button {
     font-size: 48px;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #8b6941;
@@ -80,7 +80,7 @@ body {
     
 }
 
-.buttons button:hover {
+#buttons button:hover {
     background-color: #aa8863;
     transition: 0.3s;
     cursor: pointer;

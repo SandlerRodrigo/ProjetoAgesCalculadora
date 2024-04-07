@@ -13,7 +13,7 @@
      background-color: #312c2c;
  }
 
- .calculator {
+ #calculator {
      background-color: #d3d1d1;
      width: 640px;
      height: 950px;
@@ -26,7 +26,7 @@
      border: 3.4px solid #7b6248;
  }
 
- .display {
+ #display {
      box-shadow: 1px 1px 2px 2px #7b6248;
      color: #7b6248;
      font-family: sans-serif;
@@ -41,7 +41,7 @@
      justify-content: end;
  }
 
- .display .screen {
+ #display #screen {
     height: 100%;
     width: 100%;
     display: flex;
@@ -49,7 +49,7 @@
     justify-content: end;
  }
 
- .buttons {
+ #buttons {
      background-color: #dddddd;
      width: 580px;
      height: 690px;
@@ -62,13 +62,13 @@
      border: 0.00000000000000001px solid #7b6248;
  }
 
- .buttons div {
+ #buttons div {
      width: 100%;
      display: flex;
      justify-content: space-around;
  }
 
- .buttons button {
+ #buttons button {
      font-size: 48px;
      font-family: Arial, Helvetica, sans-serif;
      width: 108px;
@@ -79,7 +79,7 @@
      
  }
 
- .buttons button:hover {
+ #buttons button:hover {
      background-color: #c19d76;
      transition: 0.3s;
      cursor: pointer;
