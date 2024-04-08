@@ -47,6 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: end;
+    font: normal 40pt arial;
  }
 
  #buttons {
