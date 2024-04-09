@@ -1,12 +1,41 @@
-// iniciates variable 'screen' with the calculator display screen div
-const screen = document.querySelector('#screen');
+const dark = document.querySelector('#dark');
 
-/* iniciates variable 'buttons' with every button in the calculator,
-to be able to listen the events (only 'onclick' in this case) */
-const buttons = document.querySelectorAll('#buttons button');
+const light = document.querySelector('#light');
+
+const body = document.querySelector('#bodyLight');
+
+const calculator = document.querySelector('#calculatorLight');
+
+const display = document.querySelector('#displayLight');
+
+const screen = document.querySelector('#screenLight');
+
+const buttons = document.querySelector('#buttonsLight');
+
+const button = document.querySelectorAll('#buttonsLight button');
+
+dark.addEventListener('click', toDark)
+
+light.addEventListener('click', toLight)
+
+function toDark() {
+    body.id = 'bodyDark'
+    calculator.id = 'calculatorDark'
+    display.id = 'displayDark'
+    screen.id = 'screenDark'
+    buttons.id = 'buttonsDark'
+}
+
+function toLight() {
+    body.id = 'bodyLight'
+    calculator.id = 'calculatorLight'
+    display.id = 'displayLight'
+    screen.id = 'screenLight'
+    buttons.id = 'buttonsLight'
+}
 
 // lambda function that adds an EventListener to every button in the calculator, all of them Listening for clicks
-buttons.forEach(button => {
+button.forEach(button => {
     button.addEventListener('click', houveClique);
 });
 
@@ -120,15 +149,19 @@ function houveClique(event) {
         case '+/-':
             if (operators.indexOf(valorDisplay) != -1)
                 break;
-            if (valorDisplay === '')
+            if (valorDisplay == '')
                 break;
             valorDisplay = Number(valorDisplay) * -1;
             break;
 
         case '.':
-            if (valorDisplay.indexOf('.') != -1)
-                break;
             if (operators.indexOf(valorDisplay) != -1)
+                break;
+            if (valorDisplay == '')
+                break;
+            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity')
+                break;
+            if (valorDisplay.indexOf('.') != -1)
                 break;
             valorDisplay = valorDisplay + '.';
             break;
@@ -140,6 +173,8 @@ function houveClique(event) {
             break;
 
         default:
+            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity')
+                break;
             if (valorDisplay == ultimoOP)
                 valorDisplay = '';
             valorDisplay += valorButton;
