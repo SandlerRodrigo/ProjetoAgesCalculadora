@@ -1,20 +1,20 @@
+document.querySelector('#dark').addEventListener('click', toDark);
+
+document.querySelector('#light').addEventListener('click', toLight);
+
 const screen = document.querySelector('#screen');
 
 const button = document.querySelectorAll('#buttons button');
 
-const changeStyle = document.querySelector('#changeStyle')
+const changeStyle = document.querySelector('#changeStyle');
 
-document.querySelector('#dark').addEventListener('click', toDark);
-
-document.querySelector('#light').addEventListener('click', toLight);
+const operators = ['%', '^', '/', '*', '+', '-'];
 
 let valorDisplay = '';
 
 let valor = null;
 
 let ultimoOP = 'C';
-
-const operators = ['%', '^', '/', '*', '+', '-'];
 
 function toDark() {
     changeStyle.href = 'css/styleDark.css';
@@ -47,7 +47,7 @@ function houveClique(event) {
         case '%':
             parcialResult();
             valorDisplay = event.target.textContent;
-            ultimoOP = '%'
+            ultimoOP = '%';
             break;
 
         case '^':
@@ -113,11 +113,11 @@ function houveClique(event) {
                 valorDisplay = '';
             valorDisplay += valorButton;
     }
-    
+
     // this function do the actual calculation that is omitted in the handling event function (houveClique)
     function parcialResult() {
 
-        if (operators.indexOf(valorDisplay) != -1)
+        if (operators.indexOf(valorDisplay) != -1) // if there is an operator at the screen
             return;
 
         switch (ultimoOP) {
