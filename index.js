@@ -1,42 +1,12 @@
-const dark = document.querySelector('#dark');
+const screen = document.querySelector('#screen');
 
-const light = document.querySelector('#light');
+const button = document.querySelectorAll('#buttons button');
 
-const body = document.querySelector('#bodyLight');
+const changeStyle = document.querySelector('#changeStyle')
 
-const calculator = document.querySelector('#calculatorLight');
+document.querySelector('#dark').addEventListener('click', toDark);
 
-const display = document.querySelector('#displayLight');
-
-const screen = document.querySelector('#screenLight');
-
-const buttons = document.querySelector('#buttonsLight');
-
-const button = document.querySelectorAll('#buttonsLight button');
-
-dark.addEventListener('click', toDark)
-
-light.addEventListener('click', toLight)
-
-function toDark() {
-    body.id = 'bodyDark'
-    calculator.id = 'calculatorDark'
-    display.id = 'displayDark'
-    screen.id = 'screenDark'
-    buttons.id = 'buttonsDark'
-}
-
-function toLight() {
-    body.id = 'bodyLight'
-    calculator.id = 'calculatorLight'
-    display.id = 'displayLight'
-    screen.id = 'screenLight'
-    buttons.id = 'buttonsLight'
-}
-
-button.forEach(button => {
-    button.addEventListener('click', houveClique);
-});
+document.querySelector('#light').addEventListener('click', toLight);
 
 let valorDisplay = '';
 
@@ -46,59 +16,18 @@ let ultimoOP = 'C';
 
 const operators = ['%', '^', '/', '*', '+', '-'];
 
-// this function do the actual calculation that is omitted in the handling event function (houveClique)
-function parcialResult() {
-
-    if (operators.indexOf(valorDisplay) != -1)
-        return;
-
-    switch (ultimoOP) {
-        case 'C':
-        case '=':
-            valor = Number(valorDisplay);
-            break;
-
-        case '%':
-            if (valor == 'Infinity' && valorDisplay == '0'|| valor == '-Infinity' && valorDisplay == '0') { // Infinity % 0 = 0
-                valor = Number(valorDisplay);
-                break;
-            }
-            valor = (valor * Number(valorDisplay)) / 100;
-            break;
-
-        case '^': // any Infinity to the power of negative fractions are resulting 0
-            if ((valor < 0) && ((Number(valorDisplay) % 1) != 0)) { // Fixes Math.pow's flaw, negative number to the power of fractional number
-                valor = -Math.pow(-valor, valorDisplay);
-                break;
-            }
-            valor = Math.pow(valor, valorDisplay);
-            break;
-
-        case '/':
-            if (valor == 0 && valorDisplay == '0') { // 
-                valor = 'Hello, World!';
-                break;
-            }
-            valor /= Number(valorDisplay);
-            break;
-
-        case '*':
-            valor *= Number(valorDisplay);
-            break;
-
-        case '+':
-            valor += Number(valorDisplay);
-            break;
-
-        case '-':
-            valor -= Number(valorDisplay);
-            break;
-    }
-
-    return;
+function toDark() {
+    changeStyle.href = 'css/styleDark.css';
 }
 
-// when called, this function writes to the display's screen whatever is inside variable 'valordisplay'
+function toLight() {
+    changeStyle.href = 'css/styleLight.css';
+}
+
+button.forEach(button => {
+    button.addEventListener('click', houveClique);
+});
+
 function atualizaTela() {
     screen.textContent = valorDisplay;
 }
@@ -106,10 +35,8 @@ function atualizaTela() {
 // this function handles every possible click in the calculator
 function houveClique(event) {
 
-    // iniciates variable 'valorButton' with clicked button's content
     const valorButton = event.target.textContent;
 
-    // a switch case receiving what button was clicked as a parameter
     switch (valorButton) {
         case 'C':
             valor = null;
@@ -158,7 +85,7 @@ function houveClique(event) {
                 break;
             if (valorDisplay == '') // if the screen is empty
                 break;
-            valorDisplay = -Number(valorDisplay); 
+            valorDisplay = -Number(valorDisplay);
             break;
 
         case '.':
@@ -186,7 +113,57 @@ function houveClique(event) {
                 valorDisplay = '';
             valorDisplay += valorButton;
     }
+    
+    // this function do the actual calculation that is omitted in the handling event function (houveClique)
+    function parcialResult() {
 
-    // updates screen with whatever is suposed to be displayed (content of variable 'valorDisplay')
+        if (operators.indexOf(valorDisplay) != -1)
+            return;
+
+        switch (ultimoOP) {
+            case 'C':
+            case '=':
+                valor = Number(valorDisplay);
+                break;
+
+            case '%':
+                if (valor == 'Infinity' && valorDisplay == '0' || valor == '-Infinity' && valorDisplay == '0') { // Infinity % 0 = 0
+                    valor = Number(valorDisplay);
+                    break;
+                }
+                valor = (valor * Number(valorDisplay)) / 100;
+                break;
+
+            case '^': // any Infinity to the power of negative fractions are resulting 0
+                if ((valor < 0) && ((Number(valorDisplay) % 1) != 0)) { // Fixes Math.pow's flaw, negative number to the power of fractional number
+                    valor = -Math.pow(-valor, valorDisplay);
+                    break;
+                }
+                valor = Math.pow(valor, valorDisplay);
+                break;
+
+            case '/':
+                if (valor == 0 && valorDisplay == '0') { // 
+                    valor = 'Hello, World!';
+                    break;
+                }
+                valor /= Number(valorDisplay);
+                break;
+
+            case '*':
+                valor *= Number(valorDisplay);
+                break;
+
+            case '+':
+                valor += Number(valorDisplay);
+                break;
+
+            case '-':
+                valor -= Number(valorDisplay);
+                break;
+        }
+
+        return;
+    }
     atualizaTela();
 }
