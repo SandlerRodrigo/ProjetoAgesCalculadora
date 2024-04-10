@@ -34,21 +34,16 @@ function toLight() {
     buttons.id = 'buttonsLight'
 }
 
-// lambda function that adds an EventListener to every button in the calculator, all of them Listening for clicks
 button.forEach(button => {
     button.addEventListener('click', houveClique);
 });
 
-// the value displayed in the display's screen is an empty string inicially
 let valorDisplay = '';
 
-// the variable 'valor' used for calculations is inicialized with null
 let valor = null;
 
-// starts the calculator informing the last operation was button 'C' (part of program's logic)
 let ultimoOP = 'C';
 
-// an array that contain the operators (part of program's logic)
 const operators = ['%', '^', '/', '*', '+', '-'];
 
 // this function do the actual calculation that is omitted in the handling event function (houveClique)
@@ -64,14 +59,26 @@ function parcialResult() {
             break;
 
         case '%':
+            if (valor == 'Infinity' && valorDisplay == '0'|| valor == '-Infinity' && valorDisplay == '0') { // Infinity % 0 = 0
+                valor = Number(valorDisplay);
+                break;
+            }
             valor = (valor * Number(valorDisplay)) / 100;
             break;
 
-        case '^':
-            valor **= Number(valorDisplay);
+        case '^': // any Infinity to the power of negative fractions are resulting 0
+            if ((valor < 0) && ((Number(valorDisplay) % 1) != 0)) { // Fixes Math.pow's flaw, negative number to the power of fractional number
+                valor = -Math.pow(-valor, valorDisplay);
+                break;
+            }
+            valor = Math.pow(valor, valorDisplay);
             break;
 
         case '/':
+            if (valor == 0 && valorDisplay == '0') { // 
+                valor = 'Hello, World!';
+                break;
+            }
             valor /= Number(valorDisplay);
             break;
 
@@ -99,7 +106,7 @@ function atualizaTela() {
 // this function handles every possible click in the calculator
 function houveClique(event) {
 
-    // iniciates variable 'valorButton' with whatever text is inside the button which triggered the EventListener
+    // iniciates variable 'valorButton' with clicked button's content
     const valorButton = event.target.textContent;
 
     // a switch case receiving what button was clicked as a parameter
@@ -147,21 +154,21 @@ function houveClique(event) {
             break;
 
         case '+/-':
-            if (operators.indexOf(valorDisplay) != -1)
+            if (operators.indexOf(valorDisplay) != -1) // if there is an operator at the screen
                 break;
-            if (valorDisplay == '')
+            if (valorDisplay == '') // if the screen is empty
                 break;
-            valorDisplay = Number(valorDisplay) * -1;
+            valorDisplay = -Number(valorDisplay); 
             break;
 
         case '.':
-            if (operators.indexOf(valorDisplay) != -1)
+            if (operators.indexOf(valorDisplay) != -1) // if there is an operator at the screen
                 break;
-            if (valorDisplay == '')
+            if (valorDisplay == '') // if the screen is empty
                 break;
-            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity')
+            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity') // if the screen is presenting any Infinity
                 break;
-            if (valorDisplay.indexOf('.') != -1)
+            if (valorDisplay.indexOf('.') != -1) // if there is already a '.' at the screen
                 break;
             valorDisplay = valorDisplay + '.';
             break;
@@ -173,7 +180,7 @@ function houveClique(event) {
             break;
 
         default:
-            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity')
+            if (valorDisplay == 'Infinity' || valorDisplay == '-Infinity') // Doesn't let user type past Infinity
                 break;
             if (valorDisplay == ultimoOP)
                 valorDisplay = '';
