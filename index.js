@@ -144,14 +144,18 @@ function houveClique(event) {
                 break;
 
             case '/':
-                if (valor == 0 && valorDisplay == '0') { // 
-                    valor = 'Hello, World!';
+                if (valorDisplay == 0) { // 
+                    valor = '';
                     break;
                 }
                 valor /= Number(valorDisplay);
                 break;
 
             case '*':
+                if (valor == 'Infinity' || valor == '-Infinity') {
+                    valor = 0;
+                    break;
+                }
                 valor *= Number(valorDisplay);
                 break;
 
