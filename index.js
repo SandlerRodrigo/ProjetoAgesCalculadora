@@ -1,19 +1,20 @@
+// gets reference to the darkMode Button
 document.querySelector('#dark').addEventListener('click', toDark);
-
+// gets reference to the lightMode Button
 document.querySelector('#light').addEventListener('click', toLight);
-
+// screen receives the reference for displayScreen
 const screen = document.querySelector('#screen');
-
+// button receives the reference to calculator's buttonsButton
 const button = document.querySelectorAll('#buttons button');
-
+// changeStyle wait for the toggleMode to be clicked, then changes style reference in the html
 const changeStyle = document.querySelector('#changeStyle');
-
+// an array cointaining the possible operators for this calculator
 const operators = ['%', '^', '/', '*', '+', '-'];
-
+// var that appearso on the display, also used to make calculations
 let valorDisplay = '';
-
+// var that stores parcialResults
 let valor = null;
-
+// last used operator starts with 'c', in order to inicialize the calculator as if the Clear button was clicked
 let ultimoOP = 'C';
 
 function toDark() {
@@ -23,7 +24,7 @@ function toDark() {
 function toLight() {
     changeStyle.href = 'css/styleLight.css';
 }
-
+// adds eventListeners to every button in the calculator
 button.forEach(button => {
     button.addEventListener('click', houveClique);
 });
